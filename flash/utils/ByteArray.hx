@@ -273,7 +273,12 @@ class ByteArray extends Bytes implements ArrayAccess<Int> implements IDataInput 
 	}
 	
 	
-	public function readDouble ():Float {
+	#if (haxe_ver <= 3.101)
+ 	public function readDouble ():Float {
+	#else
+	@:overload(function():Float {})
+	override public function readDouble(pos:Int):Float {
+	#end
 		
 		if (position + 8 > length) {
 			
@@ -303,9 +308,13 @@ class ByteArray extends Bytes implements ArrayAccess<Int> implements IDataInput 
 	
 	#end
 	
-	
+	#if (haxe_ver <= 3.101)
 	public function readFloat ():Float {
-		
+	#else
+	@:overload(function():Float {})
+	override public function readFloat(pos:Int):Float {
+	#end
+	
 		if (position + 4 > length) {
 			
 			__throwEOFi ();
